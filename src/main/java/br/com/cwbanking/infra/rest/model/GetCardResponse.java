@@ -12,10 +12,10 @@ import lombok.ToString;
 @Getter
 @ToString
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class PostCardResponse {
+public class GetCardResponse {
 
-	public PostCardResponse(Card card) {
-
+	public GetCardResponse(Card card) {
+		
 		this.id = card.getId();
 		this.cardExpirationDate = card.getExpirationDate();
 		this.cardNumber = card.getCardNumber();

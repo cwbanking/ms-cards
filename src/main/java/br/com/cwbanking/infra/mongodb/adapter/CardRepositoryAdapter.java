@@ -1,5 +1,7 @@
 package br.com.cwbanking.infra.mongodb.adapter;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,17 @@ public class CardRepositoryAdapter implements CardRepository {
 			log.info("[CARD_DATABASE] New card registration: {}", collection);
 			
 			return Mono.just(newCard);
+		});
+	}
+
+	@Override
+	public Mono<Card> findById(UUID uuid) {
+
+		return repository.findById(uuid).flatMap(collection -> {
+			
+			log.info("[CARD_DATABASE] Card found by identifier: {}", collection);
+			
+			return Mono.just(collection.getAsModel());
 		});
 	}
 }

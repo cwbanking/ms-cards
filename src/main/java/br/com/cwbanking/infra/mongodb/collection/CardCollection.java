@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import br.com.cwbanking.domain.model.Card;
+import br.com.cwbanking.domain.model.CardBrand;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -39,5 +40,15 @@ public class CardCollection {
 		securityCode = card.getSecurityCode();
 		cardholderId = card.getCardholder().getId();
 		brand = card.getBrand().name();
+	}
+
+	public Card getAsModel() {
+
+		return Card.builder()
+				.id(id)
+				.cardName(cardName)
+				.cardNumber(cardNumber)
+				.brand(CardBrand.valueOf(brand))
+				.build();
 	}
 }

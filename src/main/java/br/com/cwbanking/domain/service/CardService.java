@@ -85,7 +85,22 @@ public class CardService {
 			});
 		});
 	}
+	
+	public Mono<Card> findById(UUID cardId) {
+		
+		log.info("[CARD_DOMAIN] Finding a card by identifier...");
+		
+		return cardRepository.findById(cardId).doOnSuccess(existingCard -> {
+			
+			log.info("[CARD_DOMAIN] Card found successfully: {}", existingCard);
+		});
+	}
 
+	/**
+	 * Gera um número de cartão 
+	 * 
+	 * @return
+	 */
 	private String generateCardNumber() {
 		
 		log.info("[CARD_DOMAIN] Generating card number...");
@@ -104,6 +119,11 @@ public class CardService {
 		return "52951" + cardNumber;
 	}
 
+	/**
+	 * Gera o código de segurança
+	 * 
+	 * @return
+	 */
 	private String generateSecurityCode() {
 		
 		log.info("[CARD_DOMAIN] Generating secutiry code...");
@@ -111,6 +131,13 @@ public class CardService {
 		return UUID.randomUUID().toString().substring(0, 4).toUpperCase();
 	}
 
+	/**
+	 * Formata o nome do portador do cartão como impresso no cartão.
+	 * 
+	 * @param personFistName
+	 * @param personLastName
+	 * @return
+	 */
 	private String handleCardHolderName(String personFistName, String personLastName) {
 		
 		log.info("[CARD_DOMAIN] Generating card name...");
